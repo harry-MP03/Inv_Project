@@ -1,0 +1,13 @@
+#Crea tu entorno como .env
+
+ #Base de datos
+ DB_NAME = ''
+ DB_HOST = ''
+
+ #Vinculacion con PaperTrail (Opcional)
+ HOST_PAPERTRAIL = ''
+ PORT_PAPERTRAIL = ''
+
+ #Base de datos 2
+ DB_NAME2 = ''
+ DB_HOST2 = ''
