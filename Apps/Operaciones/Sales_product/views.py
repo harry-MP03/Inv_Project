@@ -36,7 +36,7 @@ class SalesListApiView(APIView, PaginationMixin):
         logger.info('Returning all Sales without pagination')
         return Response(serializer.data)
 
-    @swagger_auto_schema(request_body=SalesProductRegisterSerializer,responses={201: SalesProductSerializer(many=True)})
+    @swagger_auto_schema(request_body=SalesProductRegisterSerializer,responses={201: SalesProductSerializer()})
     def post(self, request, format=None):
         """Crear un registro de compras"""
         logger.info('POST request to create a new Sale')
@@ -51,6 +51,7 @@ class SalesListApiView(APIView, PaginationMixin):
             with transaction.atomic():
              #Preparando los datos base para crear nuestra venta de producto
                 data_create = {
+                'user': request.user,
                 'met_paymentFk_id': validated_data.get('metPayment_id'),
                 'customerFk_id': validated_data.get('customer_id')
                 }
@@ -68,23 +69,23 @@ class SalesListApiView(APIView, PaginationMixin):
                     productID = details_item['productID']
                     quantity_sold = details_item['quantity']
 
-                product_object = product.objects.select_for_update().get(idProduct=productID)
+                    product_object = product.objects.select_for_update().get(idProduct=productID)
 
-                #Logica del negocio para Validar y disminuir el stock
-                if product_object.current_stock < quantity_sold:
-                    raise serializers.ValidationError(f"Stock insuficiente para '{product_object.nameProduct}'. Disponible: {product_object.current_stock}")
+                    #Logica del negocio para Validar y disminuir el stock
+                    if product_object.current_stock < quantity_sold:
+                        raise serializers.ValidationError(f"Stock insuficiente para '{product_object.nameProduct}'. Disponible: {product_object.current_stock}")
 
-                product_object.current_stock -= quantity_sold
-                product_object.save()
+                    product_object.current_stock -= quantity_sold
+                    product_object.save()
 
-                #Crear el registro del detalle de ventas
-                detailSalesProduct.objects.create(
-                    saleFk = new_sale,
-                    productFK = product_object,
-                    quantity_detailSales = quantity_sold,
-                    price_Unit = product_object.price_selling
-                )
-                total_sale_calculated += quantity_sold * product_object.price_selling
+                    #Crear el registro del detalle de ventas
+                    detailSalesProduct.objects.create(
+                        saleFk = new_sale,
+                        productFK = product_object,
+                        quantity_detailSales = quantity_sold,
+                        price_Unit = product_object.price_selling
+                    )
+                    total_sale_calculated += quantity_sold * product_object.price_selling
 
                 #Actualizando el total en la venta principal
                 new_sale.total_sales = round(total_sale_calculated, 2)
