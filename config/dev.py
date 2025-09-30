@@ -6,6 +6,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+SECRET_KEY = config('SECRET_KEY')
+
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',  # Utilizamos el backend mssql-django

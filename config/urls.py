@@ -1,3 +1,4 @@
+from django.conf import settings
 
 from django.contrib import admin
 from django.urls import path, include
@@ -39,4 +40,5 @@ urlpatterns = [
 
     path('Catalogos/', include('Apps.Catalogos.urls')),
     path('Operaciones/', include('Apps.Operaciones.urls')),
+    path('Seguridad/', include('Apps.Seguridad.urls')),
 ]

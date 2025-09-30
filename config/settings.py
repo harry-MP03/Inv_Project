@@ -2,20 +2,21 @@ from pathlib import Path
 from datetime import timedelta
 from django.conf.global_settings import AUTH_USER_MODEL
 from pathlib import Path
+from decouple import config
 
 from Apps.Seguridad.setting_apps import Seguridad_Settings_Apps
 from Apps.Catalogos.setting_apps import Catalogos_Settings_Apps
 from Apps.Operaciones.setting_apps import Operaciones_Settings_Apps
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = 'static/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#gl6l4fa_h+apa5!su$t3b46x=l-cq%hrp^32u@vnovdk^*uu4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',
     'drf_yasg',
@@ -42,6 +44,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,7 +114,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
+    'SIGNING_KEY': config('SECRET_KEY'),
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
@@ -125,6 +128,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Esta es la carpeta donde `collectstatic` pondrá todos los archivos
+# estáticos para producción.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 AUTH_USER_MODEL = 'Usuarios.User'
 
 # ✅ CONFIGURACIÓN CORS PARA PERMITIR EL FRONTEND LOCAL
@@ -134,5 +142,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://127.0.0.1:5500",
-    "http://localhost:5500"
+    "http://localhost:5500",
+    "https://factusoft-backend2025.azurewebsites.net"
 ]
