@@ -11,3 +11,35 @@
  #Base de datos 2
  DB_NAME2 = ''
  DB_HOST2 = ''
+
+ #Base de datos Azure
+ DBA_NAME = ''
+ USER = ''
+ PASSWORD = ''
+ DBA_HOST = ''
+
+#Base de datos Azure DATA WAREHOUSE
+ DB_NAME_DW = ''
+ DB_USER_DW = ''
+ DB_PASSWORD_DW = ''
+ DB_HOST_DW = ''
+
+ # --- CONFIGURACIÓN DE PRODUCCIÓN ---
+
+# 1. Clave secreta de Django
+SECRET_KEY = ''
+
+# 2. Hosts/dominios permitidos
+ALLOWED_HOSTS=''
+
+# 3. Perfil FTP (opcional)
+AZURE_WEBAPP_PUBLISH_PROFILE = ''
+
+# 4. Configuración del CORS
+CORS_ALLOWED_ORIGINS = 'https://'
+
+# 5. Arranque para DJANGO
+DJANGO_SETTINGS_MODULE= 'config.prod'
+
+#6. Conexión a Cosmos DB
+COSMOS_CONNECTION_STRING = ''
