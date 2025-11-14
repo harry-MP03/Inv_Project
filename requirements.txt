@@ -1,5 +1,6 @@
 asgiref==3.8.1
 cffi==1.17.1
+clr_loader==0.2.8
 colorama==0.4.6
 colorlog==6.9.0
 cryptography==43.0.3
@@ -8,16 +9,20 @@ django-cors-headers==4.7.0
 django-filter==25.1
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
+dnspython==2.8.0
 drf-yasg==1.21.8
 Faker==37.6.0
 gunicorn==23.0.0
 inflection==0.5.1
 mssql-django==1.5
 packaging==24.2
+pyadomd==0.1.1
 pycparser==2.22
 PyJWT==2.10.0
+pymongo==4.15.4
 pyodbc==5.2.0
 python-decouple==3.8
+pythonnet==3.0.5
 pytz==2024.2
 PyYAML==6.0.2
 setuptools==75.1.0

@@ -15,14 +15,27 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': os.environ.get('DBA_NAME'),
-        'USER': os.environ.get('USER'),
+        'USER': os.environ.get('DBA_USER'),
         'PASSWORD': os.environ.get('PASSWORD'),
         'HOST': os.environ.get('DBA_HOST'),
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
+            'extra_params': 'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30',
         }
-    }
+    },
+    'data_warehouse': {
+        'ENGINE': 'mssql',
+        'NAME': os.environ.get('DB_NAME_DW'),
+        'USER': os.environ.get('DB_USER_DW'),
+        'PASSWORD': os.environ.get('DB_PASSWORD_DW'),
+        'HOST': os.environ.get('DB_HOST_DW'),
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'extra_params': 'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30',
+        }
+    },
 }
 
 # config/prod.py

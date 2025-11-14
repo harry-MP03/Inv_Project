@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/15ecc886-1127-4665-90f0-97ceb0c14977/resourceGroups/rg-factusoft/providers/Microsoft.Web/sites/factusoft-backend",
+    "appService.deploySubpath": "."
+}

@@ -7,6 +7,7 @@ from decouple import config
 from Apps.Seguridad.setting_apps import Seguridad_Settings_Apps
 from Apps.Catalogos.setting_apps import Catalogos_Settings_Apps
 from Apps.Operaciones.setting_apps import Operaciones_Settings_Apps
+from Apps.Dashboard.setting_apps import Dashboard_Settings_Apps
 
 import os
 
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'rest_framework_simplejwt',
-] + Seguridad_Settings_Apps + Catalogos_Settings_Apps + Operaciones_Settings_Apps
+] + Seguridad_Settings_Apps + Catalogos_Settings_Apps + Operaciones_Settings_Apps + Dashboard_Settings_Apps
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -143,5 +144,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
-    "https://factusoft-backend2025.azurewebsites.net"
+    "https://factusoft-backend-2025-cndzh3e6cxcvdnch.northcentralus-01.azurewebsites.net/"
 ]
