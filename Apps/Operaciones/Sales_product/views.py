@@ -24,7 +24,7 @@ class SalesListApiView(APIView, PaginationMixin):
     def get(self, request, format=None):
         """Obtener listado de las ventas"""
         logger.info('GET request to list all Sales')
-        queryset = sales_product.objects.all().order_by('-dateSales')
+        queryset = sales_product.objects.all().order_by('-idSalesProduct')[:20]
 
         page = self.paginate_queryset(queryset, request)
         if page is not None:

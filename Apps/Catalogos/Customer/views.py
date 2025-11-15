@@ -27,7 +27,7 @@ class CustomerListCreateAPIView(APIView, PaginationMixin):
     def get(self, request):
         """Obtener el listado paginado de todos los clientes."""
         logger.info("GET request to list all customers")
-        queryset = customer.objects.all().order_by('idCustomer')
+        queryset = customer.objects.all().order_by('-idCustomer')[:20]
         page = self.paginate_queryset(queryset, request)
         if page is not None:
             serializer = CustomerSerializer(page, many=True)

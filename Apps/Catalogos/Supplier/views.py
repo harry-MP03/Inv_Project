@@ -28,7 +28,7 @@ class SupplierListCreateAPIView(APIView, PaginationMixin):
     def get(self, request):
         """Obtener el listado paginado de todos los Proveedores."""
         logger.info("GET request to list all suppliers")
-        queryset = supplier.objects.all().order_by('idSupplier')
+        queryset = supplier.objects.all().order_by('-idSupplier')[:20]
         page = self.paginate_queryset(queryset, request)
         if page is not None:
             serializer = supplierSerializer(page, many=True)
